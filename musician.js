@@ -1,51 +1,91 @@
-import fs from "fs"
-import PromptSync from "prompt-sync";
-const prompt = PromptSync({ sigint: true })
-
-let musikerArray = [];
-const musicianData = fs.readFileSync("musiker.json")
-
-
 export default class Musician {
-
   #firstName;
   #lastName;
-  #infoText;
+  #instrument;
   #birthYear;
-  #band;
-  #oldBand;
-  #instruments;
+  #currentBand;
+  #prevBand;
+  #active;
 
-
-  constructor() {
-    this.createNewMusician()
+  constructor(firstName, lastName, instrument, birthYear, currentBand, prevBand, active = false) {
+    this.#firstName = firstName;
+    this.#lastName = lastName;
+    this.#instrument = instrument;
+    this.#birthYear = birthYear;
+    this.#currentBand = currentBand;
+    this.#prevBand = prevBand;
+    this.#active = active;
   }
 
-  createNewMusician() {
-    this.#firstName = JSON.parse(musicianData)
-    const musikerFirstName = prompt("Ange musikerns namn: ")
-    const musikerLastName = prompt("Ange musikerns efternamn: ")
-    const musikerInfoText = prompt("Ange en infotext: ")
-    const musikerBirthYear = prompt("Ange musikerns födelseår: ")
-    const musikerBand = prompt("Ange musikerns nuvarande band: ")
-    const musikerOldBand = prompt("Ange musikerns gamla band: ")
-    const musikerInstrument = prompt("Ange instrument: ")
+  get name() {
+    return this.#firstName;
+  }
 
-    let i = 0; i < musicianData.length; i++
-    musikerArray.push(musicianData[i]);
-    let aMusician = new Musician(musikerFirstName, musikerLastName, musikerInfoText, musikerBirthYear, musikerBand, musikerOldBand, musikerInstrument);
-    console.log(aMusician);
+  get lastname() {
+    return this.#lastName;
+  }
+
+  get instrument() {
+    return this.#instrument;
+  }
+
+  get birthYear() {
+    return this.#birthYear;
+  }
 
 
-    aMusician = {
-      firstname: musikerFirstName,
-      lastname: musikerLastName,
-      infotext: musikerInfoText,
-      birthyear: musikerBirthYear,
-      band: musikerBand,
-      roldband: musikerOldBand,
-      instrument: musikerInstrument
-    }
+  get currentBand() {
+    return this.#currentBand;
+  }
+
+  get prevBand() {
+    return this.#prevBand;
+  }
+
+  get active() {
+    return this.#active;
+  }
+
+  set name(newName) {
+    this.#firstName = newName;
+  }
+
+  set lastname(newName) {
+    this.#lastName = newName;
+  }
+
+  set instrument(NewInst) {
+    this.#instrument = NewInst;
+  }
+
+  set birthYear(NewAge) {
+    this.#birthYear = NewAge;
+  }
+
+  set currentBand(NewCurrentBand) {
+    this.#currentBand = NewCurrentBand;
+  }
+
+  set band(prevBand) {
+    this.#prevBand = prevBand;
+  }
+
+
+
+
+  active() {
+    this.#active = !this.#active;
+  }
+
+  dataInfo() {
+    return {
+      "firstname": this.#firstName,
+      "lastname": this.#lastName,
+      "birthyear": this.#birthYear,
+      "currentband": this.#currentBand,
+      "prevband": this.#prevBand,
+      "instrument": this.#instrument,
+      "active": this.#active
+    };
   }
 }
-

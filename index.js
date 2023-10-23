@@ -1,55 +1,80 @@
-import fs from "fs"
 import PromptSync from "prompt-sync";
-const prompt = PromptSync({ sigint: true })
+import MusikerLista from "./musicians.js";
+import Musician from "./musician.js";
 
-import Musician from "./musician.js"
+const musiker = new MusikerLista();
+const prompt = PromptSync({ sigint: true });
+let run = true;
+while (run) {
+  console.log(`Musikerns uppgifter: - 
+Meny:
+1. Lägg till artistens uppgifter
 
-let musician = new Musician();
-
-const musiker = fs.readFileSync("./musiker.json")
-
-/*let musikerArray = [];*/
 
 
-/*for (let i = 0; i < musiker.length; i++) {
-  musikerArray.push(musiker[i]);
-}*/
+Skriv här: `);
 
-const menu = `Musiker och band - Meny:
-  1. Skapa ett band
-  2. Skriv ut alla band
-  3. Skriv ut musiker  `
+  const val = prompt();
 
-const val = prompt("Tryck 1")
-
-if (val === "1") {
-  createNewMusician();
+  switch (val) {
+    case "1":
+      const firstName = prompt(`Skriv in artistens förnamn: `)
+      const lastName = prompt(`Skriv in artistens efternamn: `)
+      const birthYear = prompt(`Skriv in artistens födelseår: `)
+      const currentBand = prompt(`Skriv in artistens nuverande band: `)
+      const prevBand = prompt(`Skriv in artistens tidigare band: `)
+      const instrument = prompt(`Skriv in artistens instrument: `)
+      musiker.addMusikerToList(firstName, lastName, instrument, birthYear, currentBand, prevBand)
+      break;
+    case "2":
+      checkMeny();
+      break;
+    case "3":
+      removeMusiker();
+      break;
+    case "4":
+      console.log(musiker.skrivUtMusiker());
+      break;
+    case "A":
+      console.log("Programmet avslutas!");
+      run = false;
+      break;
+    default:
+      console.log("Du måste välja mellan 1 - 4 eller A!");
+  }
 }
 
-/*const musikerFirstName = prompt("Ange musikerns namn: ")
-const musikerLastName = prompt("Ange musikerns efternamn: ")
-const musikerInfoText = prompt("Ange en infotext: ")
-const musikerBirthYear = prompt("Ange musikerns födelseår: ")
-const musikerBand = prompt("Ange musikerns nuvarande band: ")
-const musikerOldBand = prompt("Ange musikerns gamla band: ")
-const musikerInstrument = prompt("Ange instrument: ")*/
 
-/*let aMusician = new Musician(musikerFirstName, musikerLastName, musikerInfoText, musikerBirthYear, musikerBand, musikerOldBand, musikerInstrument);
-console.log(aMusician);
+function removeMusiker() {
+  musiker.skrivUtMusiker();
+  const val = prompt("Skriv in index för den hunden du vill ta bort ->");
 
-aMusician = {
-  firstname: musikerFirstName,
-  lastname: musikerLastName,
-  infotext: musikerInfoText,
-  birthyear: musikerBirthYear,
-  band: musikerBand,
-  roldband: musikerOldBand,
-  instrument: musikerInstrument
+  if (Number(val).toString() === "NaN") {
+    console.log("Måste skriva in ett tal!");
+  }
+  if (val <= musiker.getLength() && val >= 1) {
+    musiker.removeMusikerFromList(Number(val) - 1);
+  } else {
+    console.log(`Talet måste vara mellan 1 och ${musiker.getLength()}`);
+  }
 }
 
-musikerArray.push(aMusician);
+function checkMeny() {
+  let run = true;
+  while (run) {
+    musiker.skrivUtMusikerMedCheckIn();
+    console.log("B. för att gå tillbaka");
+    const val = prompt("Skriv in index för den hunden du checka in/ut ->");
 
-fs.writeFile('./musiker.json', JSON.stringify(musikerArray, null, 2), (err) => {
-  if (err) throw err;
-  console.log('Dina resultat har nu sparats, Tack och välkommen att svara igen! ');
-});*/
+    if (val.trim().toUpperCase() === "B") {
+      run = false;
+    } else if (Number(val).toString() === "NaN") {
+      console.log("Du måste skriva in ett tal!");
+    }
+    if (val <= musiker.getLength() && val >= 1) {
+      musiker.checkInMusiker(Number(val) - 1);
+    } else {
+      console.log(`Talet måste vara mellan 1 och ${musiker.getLength()}`);
+    }
+  }
+}

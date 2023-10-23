@@ -2,13 +2,14 @@
   "name": "musicians-and-bands",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "type": "module",
   "license": "ISC",
   "dependencies": {
+    "fs": "^0.0.1-security",
     "prompt-sync": "^4.2.0"
   },
   "keywords": [],
