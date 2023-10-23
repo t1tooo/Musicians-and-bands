@@ -1,15 +1,21 @@
 import PromptSync from "prompt-sync";
 import MusikerLista from "./musicians.js";
-import Musician from "./musician.js";
+import BandList from "./bands.js";
+
 
 const musiker = new MusikerLista();
+const band = new BandList();
+
 const prompt = PromptSync({ sigint: true });
 let run = true;
 while (run) {
   console.log(`Musikerns uppgifter: - 
 Meny:
-1. Lägg till artistens uppgifter
-
+1. Skapa ny musiker
+2. Skapa nytt band
+3. Ta bort musiker
+4. Ta bort band
+5. Lägg till musiker i band
 
 
 Skriv här: `);
@@ -18,22 +24,29 @@ Skriv här: `);
 
   switch (val) {
     case "1":
+      console.clear()
       const firstName = prompt(`Skriv in artistens förnamn: `)
       const lastName = prompt(`Skriv in artistens efternamn: `)
       const birthYear = prompt(`Skriv in artistens födelseår: `)
+      const infoText = prompt(`Skriv in en infotext om artisten: `)
       const currentBand = prompt(`Skriv in artistens nuverande band: `)
       const prevBand = prompt(`Skriv in artistens tidigare band: `)
       const instrument = prompt(`Skriv in artistens instrument: `)
-      musiker.addMusikerToList(firstName, lastName, instrument, birthYear, currentBand, prevBand)
+      musiker.addMusikerToList(firstName, lastName, infoText, instrument, birthYear, currentBand, prevBand)
       break;
     case "2":
-      checkMeny();
+      console.clear()
+      const bandName = prompt("Enter the band's name: ");
+      const bandInfoText = prompt("Enter additional information about the band: ");
+      const createdYear = prompt("Enter the year the band was created: ");
+      const endYear = prompt("Enter the year the band ended (if applicable): ")
+      band.addBand(bandName, bandInfoText, createdYear, endYear);
       break;
     case "3":
       removeMusiker();
       break;
     case "4":
-      console.log(musiker.skrivUtMusiker());
+      removeBand();
       break;
     case "A":
       console.log("Programmet avslutas!");
@@ -60,6 +73,7 @@ function removeMusiker() {
 }
 
 function checkMeny() {
+  console.clear()
   let run = true;
   while (run) {
     musiker.skrivUtMusikerMedCheckIn();

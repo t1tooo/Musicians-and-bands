@@ -6,24 +6,24 @@ export default class MusikerLista {
 
   constructor() {
     this.#fetchMusikerData();
-    this.skrivUtMusiker();
   }
 
   get lista() {
     return this.#lista;
   }
 
-
   #fetchMusikerData() {
     const jsonString = fs.readFileSync("musician.json");
     const data = JSON.parse(jsonString);
-
-
+    const year = Number(2023);
     for (let i = 0; i < data.length; i++) {
-      this.#lista.push(new Musician(data[i].firstName, data[i].lastName, data[i].födelseår, data[i].currentBand, data[i].prevBand, data[i].instrument));
+      const birthYear = Number(data[i].birthYear);
+      if (!isNaN(birthYear)) {
+        const age = year - birthYear;
+        this.#lista.push(new Musician(data[i].firstName, data[i].lastName, birthYear, data[i].currentBand, data[i].prevBand, data[i].instrument, age));
+      }
     }
   }
-
 
   skrivUtMusiker() {
     for (let i = 0; i < this.#lista.length; i++) {
@@ -31,16 +31,14 @@ export default class MusikerLista {
     }
   }
 
-
   skrivUtMusikerMedCheckIn() {
     for (let i = 0; i < this.#lista.length; i++) {
       console.log(`${i + 1}. ${this.#lista[i].firstName} -> ${this.#lista[i].checkedIn}`);
     }
   }
 
-
-  addMusikerToList(firstName, lastName, födelseår, currentBand, prevBand, instrument) {
-    this.#lista.push(new Musician(firstName, lastName, födelseår, currentBand, prevBand, instrument));
+  addMusikerToList(firstName, lastName, födelseår, currentBand, prevBand, instrument, age) {
+    this.#lista.push(new Musician(firstName, lastName, födelseår, currentBand, prevBand, instrument, age));
     this.#updateJsonFile();
   }
 

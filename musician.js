@@ -1,32 +1,39 @@
 export default class Musician {
   #firstName;
   #lastName;
+  #infoText;
   #instrument;
   #birthYear;
   #currentBand;
   #prevBand;
+  #age;
   #active;
 
-  constructor(firstName, lastName, instrument, birthYear, currentBand, prevBand, active = false) {
+  constructor(firstName, lastName, infoText, instrument, birthYear, currentBand, prevBand, age, active = false) {
     this.#firstName = firstName;
     this.#lastName = lastName;
     this.#instrument = instrument;
+    this.#infoText = infoText;
     this.#birthYear = birthYear;
     this.#currentBand = currentBand;
     this.#prevBand = prevBand;
+    this.#age = age;
     this.#active = active;
   }
 
-  get name() {
+  get firstName() {
     return this.#firstName;
   }
 
-  get lastname() {
+  get lastName() {
     return this.#lastName;
   }
 
   get instrument() {
     return this.#instrument;
+  }
+  get infoText() {
+    return this.#infoText;
   }
 
   get birthYear() {
@@ -45,6 +52,9 @@ export default class Musician {
   get active() {
     return this.#active;
   }
+  get age() {
+    return this.#age;
+  }
 
   set name(newName) {
     this.#firstName = newName;
@@ -57,6 +67,9 @@ export default class Musician {
   set instrument(NewInst) {
     this.#instrument = NewInst;
   }
+  set infoText(NewInfo) {
+    this.#infoText = NewInfo;
+  }
 
   set birthYear(NewAge) {
     this.#birthYear = NewAge;
@@ -66,11 +79,12 @@ export default class Musician {
     this.#currentBand = NewCurrentBand;
   }
 
-  set band(prevBand) {
-    this.#prevBand = prevBand;
+  set prevBand(newPrevBand) {
+    this.#prevBand = newPrevBand;
   }
-
-
+  set age(newAge) {
+    this.#age = newAge;
+  }
 
 
   active() {
@@ -79,13 +93,15 @@ export default class Musician {
 
   dataInfo() {
     return {
-      "firstname": this.#firstName,
-      "lastname": this.#lastName,
+      "firstName": this.#firstName,
+      "lastName": this.#lastName,
+      "infoText": this.infoText,
       "birthyear": this.#birthYear,
       "currentband": this.#currentBand,
       "prevband": this.#prevBand,
       "instrument": this.#instrument,
-      "active": this.#active
+      "active": this.#active,
+      "age": (Number(this.#age))
     };
   }
 }
