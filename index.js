@@ -1,94 +1,65 @@
 import PromptSync from "prompt-sync";
-import MusikerLista from "./musicians.js";
-import BandList from "./bands.js";
+const prompt = PromptSync({ sigint: true })
+import Musician from "./musician.js"
+import Band from "./band.js";
 
+const musician = new Musician();
+console.log(
+  `Meny:
+  1. Skapa ny musiker
+  2. Skapa nytt band
+  3. Lägg till ett musiker till ett band`
+);
 
-const musiker = new MusikerLista();
-const band = new BandList();
-
-const prompt = PromptSync({ sigint: true });
-let run = true;
-while (run) {
-  console.log(`Musikerns uppgifter: - 
-Meny:
-1. Skapa ny musiker
-2. Skapa nytt band
-3. Ta bort musiker
-4. Ta bort band
-5. Lägg till musiker i band
-
-
-Skriv här: `);
-
-  const val = prompt();
-
-  switch (val) {
-    case "1":
-      console.clear()
-      const firstName = prompt(`Skriv in artistens förnamn: `)
-      const lastName = prompt(`Skriv in artistens efternamn: `)
-      const birthYear = prompt(`Skriv in artistens födelseår: `)
-      const infoText = prompt(`Skriv in en infotext om artisten: `)
-      const currentBand = prompt(`Skriv in artistens nuverande band: `)
-      const prevBand = prompt(`Skriv in artistens tidigare band: `)
-      const instrument = prompt(`Skriv in artistens instrument: `)
-      musiker.addMusikerToList(firstName, lastName, infoText, instrument, birthYear, currentBand, prevBand)
-      break;
-    case "2":
-      console.clear()
-      const bandName = prompt("Enter the band's name: ");
-      const bandInfoText = prompt("Enter additional information about the band: ");
-      const createdYear = prompt("Enter the year the band was created: ");
-      const endYear = prompt("Enter the year the band ended (if applicable): ")
-      band.addBand(bandName, bandInfoText, createdYear, endYear);
-      break;
-    case "3":
-      removeMusiker();
-      break;
-    case "4":
-      removeBand();
-      break;
-    case "A":
-      console.log("Programmet avslutas!");
-      run = false;
-      break;
-    default:
-      console.log("Du måste välja mellan 1 - 4 eller A!");
-  }
-}
-
-
-function removeMusiker() {
-  musiker.skrivUtMusiker();
-  const val = prompt("Skriv in index för den hunden du vill ta bort ->");
-
-  if (Number(val).toString() === "NaN") {
-    console.log("Måste skriva in ett tal!");
-  }
-  if (val <= musiker.getLength() && val >= 1) {
-    musiker.removeMusikerFromList(Number(val) - 1);
-  } else {
-    console.log(`Talet måste vara mellan 1 och ${musiker.getLength()}`);
-  }
-}
-
-function checkMeny() {
-  console.clear()
-  let run = true;
-  while (run) {
-    musiker.skrivUtMusikerMedCheckIn();
-    console.log("B. för att gå tillbaka");
-    const val = prompt("Skriv in index för den hunden du checka in/ut ->");
-
-    if (val.trim().toUpperCase() === "B") {
-      run = false;
-    } else if (Number(val).toString() === "NaN") {
-      console.log("Du måste skriva in ett tal!");
-    }
-    if (val <= musiker.getLength() && val >= 1) {
-      musiker.checkInMusiker(Number(val) - 1);
+const choice = prompt();
+switch (choice) {
+  case "1":
+    let musikerName = prompt("Vad heter musikern")
+    let age = prompt("Hur gammal är musikern")
+    let info = prompt("Information om musikern")
+    musician.createMusician(musikerName, age, info);
+    break;
+  case "2":
+    if (musician.musicianList.length <= 0) {
+      console.log("Du måste skapa en musiker innan du kan skapa nytt band");
     } else {
-      console.log(`Talet måste vara mellan 1 och ${musiker.getLength()}`);
+      musician.showAllMusician();
+      let choice = prompt("Välj din första bandmedlem");
+      if (choice < 0 || choice > musician.musicianList.length || isNaN(choice)) {
+        console.log("Valet finns inte");
+      } else {
+        let instrument = prompt("Vilka instrument spelar musikern");
+        let bandName = prompt("Vad heter bandet")
+        let bandAge = prompt("När skapades bandet?")
+        musician.createBand(choice, instrument, bandName, bandAge);
+      }
     }
-  }
+    break;
+  case "3":
+    if (band.bandList.length === 0) {
+      console.log("Det finns inga band")
+    } else if (musician.musicianList.length === 0) {
+      console.log("Det finns inga musiker!");
+    } else {
+      musician.showAllMusician();
+      const choice = prompt("vilken musiker vill du ha ")
+    } if (choice < 0 || choice > musician.musicianList.length || isNaN(choice)) {
+      console.log("Valet finns inte");
+    } else {
+      const instrument = prompt("Vad för instrument spelar musikern");
+      const temp = band.displayOngoingBand();
+      if (temp.length === 0) {
+        console.log("Finns inga tillgängliga band");
+      } else {
+        const choice2 = prompt("Vilket band vill du ha?")
+        if (choice2 < 0 || choice2 > temp.length || isNaN(choice2)) {
+          console.log("Valet finns inte");
+
+        } else {
+          musician.addMTB(choice, instrument, temp[choice2].bandID, temp[choice2].bandName)
+        }
+        break;
+      }
+    }
+    console.log("Valet finns ej");
 }

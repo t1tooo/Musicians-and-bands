@@ -1,13 +1,28 @@
 [
   {
-    "firstName": "ehiwkq",
-    "lastName": "weq",
-    "infoText": "fwedqsa",
-    "birthyear": "2004",
-    "currentband": "erfwdqs",
-    "prevband": "edwqsa",
-    "instrument": "fevdcwsqa",
-    "active": false,
-    "age": null
+    "musicianID": "id1698238733194",
+    "name": "tITO",
+    "age": "19",
+    "info": "Nigga",
+    "currentBand": [],
+    "previousBand": [],
+    "instrument": []
+  },
+  {
+    "musicianID": "id1698238755696",
+    "name": "juan",
+    "age": "69",
+    "info": "yo no prata svenskaa",
+    "currentBand": [
+      {
+        "bandID": "id1698238783750",
+        "bandName": "Op90",
+        "startYear": "1990"
+      }
+    ],
+    "previousBand": [],
+    "instrument": [
+      "Cotton"
+    ]
   }
 ]

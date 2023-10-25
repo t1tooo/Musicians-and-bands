@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "bandID": "id1698238783750",
+    "name": "Op90",
+    "age": "1990",
+    "currentBand": [
+      {
+        "memberID": "id1698238755696",
+        "memberName": "juan",
+        "instrument": "Cotton",
+        "joined": "1990"
+      }
+    ],
+    "previousBand": [],
+    "instrument": []
+  }
+]

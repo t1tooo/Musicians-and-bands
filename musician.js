@@ -1,107 +1,75 @@
+import fs from "fs"
+import Band from "./band.js";
+
 export default class Musician {
-  #firstName;
-  #lastName;
-  #infoText;
-  #instrument;
-  #birthYear;
-  #currentBand;
-  #prevBand;
-  #age;
-  #active;
+  musicianList = []
+  constructor() {
+    this.fetchData()
+    this.band = new Band();
+  }
+  fetchData() {
+    const jsonString = fs.readFileSync("./musician.json");
+    const data = JSON.parse(jsonString)
 
-  constructor(firstName, lastName, infoText, instrument, birthYear, currentBand, prevBand, age, active = false) {
-    this.#firstName = firstName;
-    this.#lastName = lastName;
-    this.#instrument = instrument;
-    this.#infoText = infoText;
-    this.#birthYear = birthYear;
-    this.#currentBand = currentBand;
-    this.#prevBand = prevBand;
-    this.#age = age;
-    this.#active = active;
+    for (let i = 0; i < data.length; i++) {
+      this.musicianList.push(data[i]);
+    }
   }
 
-  get firstName() {
-    return this.#firstName;
+  createMusician(name, age, info) {
+    const newMusician = new NewMusician(name, age, info);
+    this.musicianList.push(newMusician.dataInfo())
+    this.writeToJson();
   }
-
-  get lastName() {
-    return this.#lastName;
-  }
-
-  get instrument() {
-    return this.#instrument;
-  }
-  get infoText() {
-    return this.#infoText;
-  }
-
-  get birthYear() {
-    return this.#birthYear;
+  writeToJson() {
+    fs.writeFileSync('./musician.json', JSON.stringify(this.musicianList, null, 2), (err) => {
+      if (err) throw err;
+      console.log('Artist data succsefully into file')
+    })
   }
 
 
-  get currentBand() {
-    return this.#currentBand;
+  showAllMusician() {
+    for (let i = 0; i < this.musicianList.length; i++) {
+      console.log(`${i}. ${this.musicianList[i].name} ${this.musicianList[i].age}`)
+    }
+  }
+  editMusicianList(index, instrument, bandID, bandName, startYear) {
+    if (!this.musicianList[index].instrument.includes(instrument)) {
+      this.musicianList[index].instrument.push(instrument);
+    }
+    this.musicianList[index].currentBand.push({ bandID: bandID, bandName: bandName, startYear: startYear })
+  }
+  addMTB(musicianIndex, instrument, bandID) {
+    this.editMusicianList(musicianIndex, instrument, bandID, bandName, new Date().getFullYear());
+    this.band.editBand(this.band.bandList.findIndex(x => x.bandID === bandID),);
   }
 
-  get prevBand() {
-    return this.#prevBand;
+  createBand(choice, instrument, bandName, bandAge,) {
+    const tempID = this.band.createBand(bandName, bandAge, this.musicianList[choice].musicianID, this.musicianList[choice].name, instrument)
+    this.editMusicianList(choice, instrument, tempID, bandName, bandAge)
+    this.band.writeToJson();
+    this.writeToJson();
   }
-
-  get active() {
-    return this.#active;
-  }
-  get age() {
-    return this.#age;
-  }
-
-  set name(newName) {
-    this.#firstName = newName;
-  }
-
-  set lastname(newName) {
-    this.#lastName = newName;
-  }
-
-  set instrument(NewInst) {
-    this.#instrument = NewInst;
-  }
-  set infoText(NewInfo) {
-    this.#infoText = NewInfo;
-  }
-
-  set birthYear(NewAge) {
-    this.#birthYear = NewAge;
-  }
-
-  set currentBand(NewCurrentBand) {
-    this.#currentBand = NewCurrentBand;
-  }
-
-  set prevBand(newPrevBand) {
-    this.#prevBand = newPrevBand;
-  }
-  set age(newAge) {
-    this.#age = newAge;
-  }
+}
 
 
-  active() {
-    this.#active = !this.#active;
-  }
 
+class NewMusician {
+  constructor(name, age, info) {
+    this.name = name
+    this.age = age
+    this.info = info
+  }
   dataInfo() {
     return {
-      "firstName": this.#firstName,
-      "lastName": this.#lastName,
-      "infoText": this.infoText,
-      "birthyear": this.#birthYear,
-      "currentband": this.#currentBand,
-      "prevband": this.#prevBand,
-      "instrument": this.#instrument,
-      "active": this.#active,
-      "age": (Number(this.#age))
+      musicianID: 'id' + new Date().getTime(),
+      name: this.name,
+      age: this.age,
+      info: this.info,
+      currentBand: [],
+      previousBand: [],
+      instrument: []
     };
   }
 }

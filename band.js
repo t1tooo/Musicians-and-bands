@@ -1,67 +1,75 @@
+import fs from "fs"
 export default class Band {
-  #bandName;
-  #infoText;
-  #createdYear;
-  #endYear;
-
-  #active;
-
-  constructor(bandName, infoText, createdYear, endYear, active = false) {
-    this.#bandName = bandName;
-    this.#infoText = infoText;
-    this.#createdYear = createdYear;
-    this.#endYear = endYear;
-    this.#active = active;
+  bandList = []
+  constructor() {
+    this.fetchData()
+    this.newBand = new NewBand();
   }
 
-  get bandName() {
-    return this.#bandName;
+  fetchData() {
+    const jsonString = fs.readFileSync("./band.json");
+    const data = JSON.parse(jsonString)
+
+    for (let i = 0; i < data.length; i++) {
+      this.bandList.push(data[i]);
+    }
   }
 
-  get infoText() {
-    return this.#infoText;
+  writeToJson() {
+    fs.writeFileSync('./band.json', JSON.stringify(this.bandList, null, 2), (err) => {
+      if (err) throw err;
+      console.log('Artist data succsefully into file')
+    })
+  }
+  ongoingBand() {
+    const temp = [];
+    for (let i = 0; i < this.bandList; i++) {
+      if (this.bandList[i].dissolved === null) {
+        temp.push({ bandID: this.bandList[i].bandID, bandName: this.bandList[i].bandName })
+      }
+    }
+    return temp;
+  }
+  displayOngoingBand() {
+    const temp = this.displayOngoingBand();
+    if (!temp.length === 0) {
+      for (let i = 0; i < temp.length; i++) {
+        console.log(`${i}. ${temp[i].bandName}`);
+      }
+    }
+    return temp;
   }
 
-  get createdYear() {
-    return this.#createdYear;
+  createBand(bandName, bandAge, musicianID, musicianName, instrument) {
+    const newBand = new NewBand(bandName, bandAge, musicianID, musicianName, instrument)
+    this.bandList.push(newBand.dataInfo())
+    return newBand.dataInfo().bandID;
+    this.writeToJson();
   }
+  editBand() {
 
-  get endYear() {
-    return this.#endYear;
   }
+}
 
-  get active() {
-    return this.#active;
+
+class NewBand {
+  constructor(bandName, bandAge, musicianID, musicianName, instrument) {
+    this.bandName = bandName;
+    this.bandAge = bandAge;
+    this.musicianID = musicianID;
+    this.musicianName = musicianName;
+    this.instrument = instrument;
+
   }
-
-  set bandName(newName) {
-    this.#bandName = newName;
-  }
-
-  set infoText(newInfo) {
-    this.#infoText = newInfo;
-  }
-
-  set createdYear(newYear) {
-    this.#createdYear = newYear;
-  }
-
-  set endYear(newYear) {
-    this.#endYear = newYear;
-  }
-
-
-  active() {
-    this.#active = !this.#active;
-  }
-
-  getInfo() {
+  dataInfo() {
     return {
-      bandName: this.#bandName,
-      infoText: this.#infoText,
-      createdYear: this.#createdYear,
-      endYear: this.#endYear,
-      active: this.#active,
+      bandID: 'id' + new Date().getTime(),
+      name: this.bandName,
+      age: this.bandAge,
+      currentBand: [{ memberID: this.musicianID, memberName: this.musicianName, instrument: this.instrument, joined: this.bandAge }],
+      previousBand: [],
+      instrument: [],
+      ended: null
     };
   }
 }
