@@ -4,9 +4,17 @@
     "name": "tITO",
     "age": "19",
     "info": "Nigga",
-    "currentBand": [],
+    "currentBand": [
+      {
+        "bandID": "id1698316859174",
+        "bandName": "benrovlwfqod",
+        "startYear": "ernowflqd"
+      }
+    ],
     "previousBand": [],
-    "instrument": []
+    "instrument": [
+      "knfevdwls"
+    ]
   },
   {
     "musicianID": "id1698238755696",
@@ -23,6 +31,23 @@
     "previousBand": [],
     "instrument": [
       "Cotton"
+    ]
+  },
+  {
+    "musicianID": "id1698282936601",
+    "name": "TITO",
+    "age": "MAMAMDOU",
+    "info": "STOR",
+    "currentBand": [
+      {
+        "bandID": "id1698282962094",
+        "bandName": "BANDIDIOS",
+        "startYear": "2004"
+      }
+    ],
+    "previousBand": [],
+    "instrument": [
+      "GUITARR"
     ]
   }
 ]

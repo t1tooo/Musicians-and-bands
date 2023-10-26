@@ -31,7 +31,7 @@ export default class Band {
     return temp;
   }
   displayOngoingBand() {
-    const temp = this.displayOngoingBand();
+    const temp = this.ongoingBand();
     if (!temp.length === 0) {
       for (let i = 0; i < temp.length; i++) {
         console.log(`${i}. ${temp[i].bandName}`);
@@ -40,14 +40,34 @@ export default class Band {
     return temp;
   }
 
+  displayCurrentMember(bandIndex) {
+    const band = this.bandList[bandIndex].currentBand;
+    const currentMember = [];
+    for (let i = 0; i < this.bandList[bandIndex].length; i++) {
+      console.log(`${i}. ${band[i].memberName} ${band[i].instrument}`);
+      currentMember.push(band[i].memberID);
+    }
+    return currentMember;
+  }
+
   createBand(bandName, bandAge, musicianID, musicianName, instrument) {
     const newBand = new NewBand(bandName, bandAge, musicianID, musicianName, instrument)
     this.bandList.push(newBand.dataInfo())
     return newBand.dataInfo().bandID;
     this.writeToJson();
   }
-  editBand() {
+  editBand(index, musikerID, musikerName, instrument, datum) {
+    this.bandLista[index].currentBand.push({ memberID: musikerID, memberName: musikerName, instrument: instrument, joined: datum })
+  }
+  currentToPrevious(bandIndex, musicianID, date) {
+    const member = this.bandList[bandIndex].currentBand.find(x => x.memberID === musicianID)
+    member["dateItLeft"] = date;
 
+    this.bandList[bandIndex].previousBand.push(member);
+    this.bandList[bandIndex].currentBandBand.splice(this.bandList[bandIndex].currentBand.findIndex(x => x.bandID === bandID), 1)
+    if (this.bandList[bandIndex].currentBand.length === 0) {
+      this.bandList[bandIndex].dissolved = date;
+    }
   }
 }
 

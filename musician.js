@@ -51,6 +51,22 @@ export default class Musician {
     this.band.writeToJson();
     this.writeToJson();
   }
+
+  removeOneMusician(bandID, bandIndex, musicianID) {
+    const date = new Date().toLocaleString();
+
+    this.band.currentToPrevious(bandIndex, musicianID, date)
+    this.currentToPrevious(this.musicianList.findIndex(x => x.musicianID === musicianID), bandID, date);
+
+  }
+  currentToPrevious(bandIndex, musicianID, date) {
+    const music = this.musicianList[musicianID];
+    const band = music.currentBand.find(x => x.bandID === bandID);
+    band["timeLeft"] = date;
+
+    music.previousBand.push(band);
+    music.currentBand.splice(music.currentBand.findIndex(x => x.bandID === bandID), 1)
+  }
 }
 
 

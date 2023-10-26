@@ -4,11 +4,13 @@ import Musician from "./musician.js"
 import Band from "./band.js";
 
 const musician = new Musician();
+const band = new Band();
 console.log(
   `Meny:
   1. Skapa ny musiker
   2. Skapa nytt band
-  3. Lägg till ett musiker till ett band`
+  3. Lägg till ett musiker till ett band
+  4. Ta bort musiker eller band`
 );
 
 const choice = prompt();
@@ -61,5 +63,29 @@ switch (choice) {
         break;
       }
     }
+  case "4":
+    if (band.bandList.length === 0) {
+      console.log("Det finns inga band")
+    } else if (musician.musicianList.length === 0) {
+      console.log("Det finns inga musiker!");
+    } else {
+      const tempBand = band.displayOngoingBand();
+      if (tempBand.length === 0) {
+        console.log("Det finns inga tillgängliga band");
+      } else {
+        const choice1 = prompt("Bandet du vill ha: ")
+      } if (choice1 < 0 || choice1 > tempBand.length || isNaN(choice1)) {
+        console.log("Valet finns inte");
+      } else {
+        const tempMusician = band.displayCurrentMember(tempBand[choice1].index,)
+        const choice2 = prompt("Vilken musiker vill du ta bort: ")
+      } if (choice2 < 0 || choice2 > tempMusician.length || isNaN(choice2)) {
+        console.log("Valet finns inte");
+      } else {
+        musician.removeOneMusician(tempBand[choice1].bandID, tempBand[choice].index, tempMusician[choice2])
+      }
+    }
+
+    break;
     console.log("Valet finns ej");
 }

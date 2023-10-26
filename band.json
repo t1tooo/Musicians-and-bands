@@ -13,5 +13,37 @@
     ],
     "previousBand": [],
     "instrument": []
+  },
+  {
+    "bandID": "id1698282962094",
+    "name": "BANDIDIOS",
+    "age": "2004",
+    "currentBand": [
+      {
+        "memberID": "id1698282936601",
+        "memberName": "TITO",
+        "instrument": "GUITARR",
+        "joined": "2004"
+      }
+    ],
+    "previousBand": [],
+    "instrument": [],
+    "ended": null
+  },
+  {
+    "bandID": "id1698316859174",
+    "name": "benrovlwfqod",
+    "age": "ernowflqd",
+    "currentBand": [
+      {
+        "memberID": "id1698238733194",
+        "memberName": "tITO",
+        "instrument": "knfevdwls",
+        "joined": "ernowflqd"
+      }
+    ],
+    "previousBand": [],
+    "instrument": [],
+    "ended": null
   }
 ]
