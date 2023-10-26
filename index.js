@@ -1,10 +1,11 @@
 import PromptSync from "prompt-sync";
-const prompt = PromptSync({ sigint: true })
+const prompt = PromptSync({ sigint: true });
 import Musician from "./musician.js";
 import Band from "./band.js";
 
 const musician = new Musician();
 const band = new Band();
+
 console.log(
   `Meny:
   1. Skapa ny musiker
@@ -19,9 +20,9 @@ const userChoice = prompt();
 switch (userChoice) {
   case "1":
     let musikerName = prompt("Vad heter musikern");
-    let age = parseInt(prompt("Hur gammal är musikern"));
+    let birthdate = prompt("Ange födelsedatum (yyyymmdd)");
     let info = prompt("Information om musikern");
-    musician.createMusician(musikerName, age, info);
+    musician.createMusician(musikerName, birthdate, info);
     break;
   case "2":
     if (musician.musicianList.length <= 0) {
@@ -44,7 +45,12 @@ switch (userChoice) {
       console.log("Musiker finns inte");
     } else {
       musician.showAllMusician();
-      let choice = prompt("Skriv in numret på musikern du vill se mer om: ")
+      let choice = parseInt(prompt("Skriv in numret på musikern du vill se mer om: "));
+      if (choice < 0 || choice >= musician.musicianList.length || isNaN(choice)) {
+        console.log("Denna val finns inte");
+      } else {
+        musician.showAMusician(choice);
+      }
     }
     break;
   case "4":
@@ -73,7 +79,7 @@ switch (userChoice) {
       }
     }
     break;
-  case "4":
+  case "5":
     if (band.bandList.length === 0) {
       console.log("Det finns inga band");
     } else if (musician.musicianList.length === 0) {
@@ -88,11 +94,15 @@ switch (userChoice) {
           console.log("Valet finns inte");
         } else {
           const tempMusician = band.displayCurrentMember(tempBand[choice1].index);
-          const choice2 = parseInt(prompt("Vilken musiker vill du ta bort: "));
-          if (choice2 < 0 || choice2 >= tempMusician.length || isNaN(choice2)) {
-            console.log("Valet finns inte");
+          if (tempMusician.length === 0) {
+            console.log("Det finns inga musiker i bandet");
           } else {
-            musician.removeOneMusician(tempBand[choice1].bandID, tempBand[choice1].index, tempMusician[choice2]);
+            const choice2 = parseInt(prompt("Vilken musiker vill du ta bort: "));
+            if (choice2 < 0 || choice2 >= tempMusician.length || isNaN(choice2)) {
+              console.log("Valet finns inte");
+            } else {
+              musician.removeOneMusician(tempBand[choice1].bandID, tempBand[choice1].index, tempMusician[choice2]);
+            }
           }
         }
       }
@@ -101,3 +111,6 @@ switch (userChoice) {
   default:
     console.log("Ogiltigt val");
 }
+
+console.log(`Number of musicians: ${musician.musicianList.length}`);
+console.log(`Number of bands: ${band.bandList.length}`);

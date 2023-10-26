@@ -1,28 +1,19 @@
 [
   {
-    "musicianID": "id1698329081415",
-    "name": "fds",
-    "age": 19,
-    "info": "feds",
+    "musicianID": "id1698338180189",
+    "name": "Tito",
+    "age": 18,
+    "info": "Lidl Merchant",
     "currentBand": [
       {
-        "bandID": "id1698329102109",
-        "bandName": "rferdwq",
-        "startYear": "fedwsq"
+        "bandID": "id1698338222794",
+        "bandName": "TITO",
+        "startYear": "2004"
       }
     ],
     "previousBand": [],
     "instrument": [
-      "grfedwsq"
+      "TIto"
     ]
-  },
-  {
-    "musicianID": "id1698329091876",
-    "name": "grfedw",
-    "age": 20,
-    "info": "gfedw",
-    "currentBand": [],
-    "previousBand": [],
-    "instrument": []
   }
 ]
