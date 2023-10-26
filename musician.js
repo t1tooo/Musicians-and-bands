@@ -57,6 +57,8 @@ export default class Musician {
 
     this.band.currentToPrevious(bandIndex, musicianID, date)
     this.currentToPrevious(this.musicianList.findIndex(x => x.musicianID === musicianID), bandID, date);
+    this.band.writeToJson();
+    this.writeToJson();
 
   }
   currentToPrevious(bandIndex, musicianID, date) {

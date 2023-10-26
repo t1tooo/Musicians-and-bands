@@ -1,53 +1,28 @@
 [
   {
-    "musicianID": "id1698238733194",
-    "name": "tITO",
-    "age": "19",
-    "info": "Nigga",
+    "musicianID": "id1698329081415",
+    "name": "fds",
+    "age": 19,
+    "info": "feds",
     "currentBand": [
       {
-        "bandID": "id1698316859174",
-        "bandName": "benrovlwfqod",
-        "startYear": "ernowflqd"
+        "bandID": "id1698329102109",
+        "bandName": "rferdwq",
+        "startYear": "fedwsq"
       }
     ],
     "previousBand": [],
     "instrument": [
-      "knfevdwls"
+      "grfedwsq"
     ]
   },
   {
-    "musicianID": "id1698238755696",
-    "name": "juan",
-    "age": "69",
-    "info": "yo no prata svenskaa",
-    "currentBand": [
-      {
-        "bandID": "id1698238783750",
-        "bandName": "Op90",
-        "startYear": "1990"
-      }
-    ],
+    "musicianID": "id1698329091876",
+    "name": "grfedw",
+    "age": 20,
+    "info": "gfedw",
+    "currentBand": [],
     "previousBand": [],
-    "instrument": [
-      "Cotton"
-    ]
-  },
-  {
-    "musicianID": "id1698282936601",
-    "name": "TITO",
-    "age": "MAMAMDOU",
-    "info": "STOR",
-    "currentBand": [
-      {
-        "bandID": "id1698282962094",
-        "bandName": "BANDIDIOS",
-        "startYear": "2004"
-      }
-    ],
-    "previousBand": [],
-    "instrument": [
-      "GUITARR"
-    ]
+    "instrument": []
   }
 ]
